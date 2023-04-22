@@ -21,12 +21,12 @@ int main(void)
 			{
 				if (digit_1 != digit_2 &&
 					digit_1 < digit_2 && digit_2 != digit_3 &&
-				digit_2 < digi_3)
+				digit_2 < digit_3)
 				{
 					putchar(48 + digit_1);
 					putchar(48 + digit_2);
 					putchar(48 + digit_3);
-					if ((digit_1 + digit_2 + digit_) != 24)
+					if ((digit_1 + digit_2 + digit_3) != 24)
 					{
 						putchar(',');
 						putchar(' ');
