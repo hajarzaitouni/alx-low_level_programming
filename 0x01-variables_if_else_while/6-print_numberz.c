@@ -15,7 +15,7 @@ int main(void)
 	while (digit_n <= 9)
 	{
 		/*convert into ASCII code*/
-		putchar(48 + n);
+		putchar(48 + digit_n);
 		digit_n++;
 	}
 	putchar('\n');
