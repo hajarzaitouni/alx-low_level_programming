@@ -31,7 +31,7 @@ void print_times_table(int n)
 				}
 				if (mult >= 100)
 				{
-					_putchar((mult / 10) + 48);
+					_putchar((mult / 100) + 48);
 					_putchar(((mult / 10) % 10) + 48);
 				}
 				else if (mult <= 99 && mult >= 10)
