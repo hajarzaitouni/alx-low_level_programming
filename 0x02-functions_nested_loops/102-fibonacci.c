@@ -19,7 +19,7 @@ int main(void)
 	for (i = 0; i < n; i++)
 	{
 		fib3 = fib2 + fib1;
-		printf("%d", fib3);
+		printf("%lu", fib3);
 
 		fib1 = fib2;
 		fib2 = fib3;
