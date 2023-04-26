@@ -14,7 +14,8 @@ int main(void)
 	unsigned long fib1, fib2, fib3;
 
 	n = 50;
-	fib1 = fib2 = 1;
+	fib1 = 0;
+	fib2 = 1;
 
 	for (i = 0; i < n; i++)
 	{
