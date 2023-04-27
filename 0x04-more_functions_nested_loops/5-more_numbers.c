@@ -6,20 +6,21 @@
 
 void more_numbers(void)
 {
-	int i, j;
+	int i, j, k;
 
 	/* i loops over the number of lines*/
-	/* j loops over numbers from 0 to 14*/
+	/* j loops over numbers from 0 to 9*/
+	/* k loops over second digit of numbers from 10 to 14*/
 	for (i = 0; i < 10; i++)
 	{
-		for (j = 48; j <= 57; j++)
+		for (j = 0; j <= 9; j++)
 		{
-			_putchar(j);
+			_putchar(j + 48);
 		}
-		for (j = 48; j < 53; j++)
+		for (k = 0; k < 5; k++)
 		{
 			_putchar(49);
-			_putchar(j);
+			_putchar(k + 48);
 		}
 		_putchar('\n');
 	}
