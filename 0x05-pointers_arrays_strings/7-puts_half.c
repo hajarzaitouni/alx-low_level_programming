@@ -11,6 +11,7 @@ void puts_half(char *str)
 
 	for (i = 0; str[i] != '\0'; i++)
 		counter++;
+	counter++;
 	n = counter / 2;
 
 	if (counter % 2 != 0)
