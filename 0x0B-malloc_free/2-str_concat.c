@@ -16,9 +16,9 @@ char *str_concat(char *s1, char *s2)
 	count1 = count2 = 0;
 
 	if (s1 == NULL)
-		s1 = '\0';
+		s1 = "";
 	if (s2 == NULL)
-		s2 = '\0';
+		s2 = "";
 	while (s1[count1] != '\0')
 		count1++;
 	while (s2[count2] != '\0')
@@ -34,5 +34,6 @@ char *str_concat(char *s1, char *s2)
 		cat_str[count1] = s2[i];
 		count1++;
 	}
+	cat_str[count1] = '\0';
 	return (cat_str);
 }
