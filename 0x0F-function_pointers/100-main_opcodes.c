@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
 		if (i == (n_bytes - 1))
 		{
 			printf("%02hhx\n", *(ptr + i));
+			break;
 		}
 		printf("%02hhx ", *(ptr + i));
 		i++;
