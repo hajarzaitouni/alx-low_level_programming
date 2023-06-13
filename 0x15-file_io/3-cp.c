@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	}
 
 	fd_from = open(argv[1], O_RDONLY);
-	fd_to = open(argv[2], O_CREAT | O_RDWR | O_TRUNC, 0664);
+	fd_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	r_bytes = read(fd_from, buffer, BUFF_SIZE);
 	do {
 
