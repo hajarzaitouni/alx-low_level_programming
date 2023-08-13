@@ -208,13 +208,12 @@ void shash_table_delete(shash_table_t *ht)
 	shash_table_t *head = ht;
 	shash_node_t *temp;
 	unsigned long int i;
-	
+
 	if (!ht)
 		return;
-	
 	for (i = 0; i < ht->size; i++)
 	{
-		while(ht->array[i])
+		while (ht->array[i])
 		{
 			temp = ht->array[i]->next;
 			free(ht->array[i]->key);
