@@ -30,6 +30,82 @@ shash_table_t *shash_table_create(unsigned long int size)
 }
 
 /**
+ * create_node - create a node to add in the shash table
+ *
+ * @key: a pointer to the key
+ * @value: a pointer to the value associated with the key
+ * Return: a pointer to the new node
+ */
+
+shash_node_t *create_node(const char *key, const char *value)
+{
+	shash_node_t *node;
+
+	node = malloc(sizeof(shash_node_t));
+	if (!node)
+		return (NULL);
+
+	node->key = strdup(key);
+	if (!(node->key))
+	{
+		free(node->key);
+		free(node);
+		return (NULL);
+	}
+
+	node->value = strdup(value);
+	if (!(node->value))
+	{
+		free(node->value);
+		free(node);
+		return (NULL);
+	}
+
+	return (node);
+}
+
+/**
+ * add_snode - add a sorted node
+ *
+ * @ht: a pointer to the shash table
+ * @node: a pointer to the newly node
+ */
+
+void add_snode(shash_table_t *ht, shash_node_t *node)
+{
+	shash_node_t *temp;
+
+	if (ht->shead == NULL)
+	{
+		node->snext = NULL;
+		node->sprev = NULL;
+		ht->shead = node;
+		ht->stail = node;
+	}
+	else if (strcmp(ht->shead->key, node->key) > 0)
+	{
+		node->snext = ht->shead;
+		node->sprev = NULL;
+		ht->shead->sprev = node;
+		ht->shead = node;
+	}
+	else
+	{
+		temp = ht->shead;
+		while ((temp->snext) && strcmp(temp->snext->key, node->key) < 0)
+			temp = temp->snext;
+		node->snext = temp->snext;
+		node->sprev = temp;
+		if (!(temp->snext))
+			ht->stail = node;
+		else
+			temp->snext->sprev = node;
+		temp->snext = node;
+	}
+}
+
+
+/**
  * shash_table_set - adds element to the sorted hash table
  *
  * @ht: a pointer to the shash table
@@ -40,7 +116,7 @@ shash_table_t *shash_table_create(unsigned long int size)
 
 int shash_table_set(shash_table_t *ht, const char *key, const char *value)
 {
-	shash_node_t *new_node, *temp, *node;
+	shash_node_t *new_node, *temp;
 	unsigned long int idx;
 
 	if (!ht || !key || !value)
@@ -60,55 +136,16 @@ int shash_table_set(shash_table_t *ht, const char *key, const char *value)
 		temp = temp->next;
 	}
 
-	new_node = malloc(sizeof(shash_node_t));
+	new_node = create_node(key, value);
+
 	if (!new_node)
 		return (0);
 
-	new_node->key = strdup(key);
-	if (!(new_node->key))
-	{
-		free(new_node->key);
-		free(new_node);
-		return (0);
-	}
-
-	new_node->value = strdup(value);
-	if (!(new_node->value))
-	{
-		free(new_node->value);
-		free(new_node);
-		return (0);
-	}
 	new_node->next = ht->array[idx];
 	ht->array[idx] = new_node;
 
-	if (ht->shead == NULL)
-	{
-		new_node->snext = NULL;
-		new_node->sprev = NULL;
-		ht->shead = new_node;
-		ht->stail = new_node;
-	}
-	else if (strcmp(ht->shead->key, key) > 0)
-	{
-		new_node->snext = ht->shead;
-		new_node->sprev = NULL;
-		ht->shead->sprev = new_node;
-		ht->shead = new_node;
-	}
-	else
-	{
-		node = ht->shead;
-		while ((node->snext) && strcmp(node->snext->key, key) < 0)
-			node = node->snext;
-		new_node->snext = node->snext;
-		new_node->sprev = node;
-		if (!(node->snext))
-			ht->stail = new_node;
-		else
-			node->snext->sprev = new_node;
-		node->snext = new_node;
-	}
+	add_snode(ht, new_node);
+
 	return (1);
 }
 
@@ -142,6 +179,7 @@ char *shash_table_get(const shash_table_t *ht, const char *key)
 	}
 	return (NULL);
 }
+
 
 /**
  * shash_table_print - prints a sorted hash table
